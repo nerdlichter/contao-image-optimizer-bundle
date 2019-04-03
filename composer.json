@@ -1,0 +1,60 @@
+{
+  "name": "nerdlichter/contao-image-optimizer-bundle",
+  "type": "contao-bundle",
+  "description": "Optimizing PNGs, JPGs, SVGs and GIFs",
+  "keywords": [
+    "contao",
+    "thumbnails"
+  ],
+  "version": "1.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Max Staack",
+      "email": "staack@nerdlichter.com",
+      "homepage": "https://www.nerdlichter.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=7.2",
+    "ext-exif": "*",
+    "contao/core-bundle": "^4.4",
+    "spatie/image-optimizer": "^1.1"
+  },
+  "require-dev": {
+    "contao/manager-plugin": "^2.0",
+    "phpunit/phpunit": "^6.0"
+  },
+  "conflict": {
+    "contao/manager-plugin": "<2.0 || >=3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Nerdlichter\\ImageOptimizerBundle\\": "src/"
+    },
+    "classmap": [
+      "src/Resources/contao/"
+    ],
+    "exclude-from-classmap": [
+      "src/Resources/contao/config/",
+      "src/Resources/contao/dca/",
+      "src/Resources/contao/languages/",
+      "src/Resources/contao/templates/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Nerdlichter\\ImageOptimizerBundle\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "contao-manager-plugin": "Nerdlichter\\ImageOptimizerBundle\\ContaoManager\\Plugin",
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
