@@ -6,7 +6,8 @@ use InvalidArgumentException;
 use Spatie\ImageOptimizer\OptimizerChain;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use SplFileInfo;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -17,7 +18,7 @@ use Symfony\Component\Finder\Finder;
  * Class OptimizeImagesCommand
  * @package Nerdlichter\ImageOptimizerBundle\Command
  */
-class OptimizeImagesCommand extends ContainerAwareCommand
+class OptimizeImagesCommand extends Command
 {
     /**
      * @var string
@@ -51,6 +52,17 @@ class OptimizeImagesCommand extends ContainerAwareCommand
      * @var bool
      */
     private $backup;
+    /**
+     * @var ContaoFramework
+     */
+    private $framework;
+
+    public function __construct(ContaoFramework $framework)
+    {
+        $this->framework = $framework;
+
+        parent::__construct();
+    }
 
     protected function configure()
     {
@@ -73,9 +85,13 @@ class OptimizeImagesCommand extends ContainerAwareCommand
      */
     public function run(InputInterface $input, OutputInterface $output)
     {
+        $this->framework->initialize();
+
         $path = $this->init($input, $output);
         $this->process($path);
         $this->printInformation();
+
+        return 0;
     }
 
     /**
